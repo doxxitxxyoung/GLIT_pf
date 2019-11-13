@@ -136,7 +136,7 @@ def main(args):
             
 
         if args.eval == True:
-            model.load_state_dict(torch.load(model_path))
+            model.load_state_dict(torch.load(model_path, map_location = args.device))
             valid_pred, valid_proba, valid_label, valid_drug_names,\
                     test_pred, test_proba, test_label, test_drug_names = ValidAndTest(
                         valid_loader, test_loader, model, optimizer, 
