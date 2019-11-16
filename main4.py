@@ -247,6 +247,8 @@ if __name__ == "__main__":
     if args.eval == True:
         args.save_model == False
 
+    if not torch.cuda.is_available():
+        args.device = 'cpu'
 
     main(args)
     print('Model : '+ args.model)

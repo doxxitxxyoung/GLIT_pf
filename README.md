@@ -26,4 +26,26 @@ rdkit
 
 1. Download required data/models from https://drive.google.com/drive/folders/1_NLeSBIdQO2Gbh6n97is5tKfUi_zSsH5?usp=sharing
 
-2. run 'run_main4.sh'
+2. run 'run_main4.sh' for gpu users, or run 'run_main4_cpu.sh' for cpu users
+
+You can also download docker images to run models.
+
+For cpu users:
+
+```
+# for cpu users
+docker pull doxxitxxyoung/glit_cpu
+
+docker run -i -t doxxitxxyoung/glit_cpu /bin/bash
+cd GLIT
+./run_main4_cpu.sh
+
+# for gpu users
+docker pull doxxitxxyoung/glit_gpu
+
+docker run -i -t --runtime=nvidia doxxitxxyoung/glit_gpu /bin/bash
+cd GLIT
+./run_main4.sh
+```
+
+
