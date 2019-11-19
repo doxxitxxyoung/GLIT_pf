@@ -58,7 +58,6 @@ def main(args):
     x[6] = cell_id
     x[7] = smiles string
     """
-
     if args.gex_feat == 'l1000':
         with open('data/labeled_list_woAmbi_92742_70138.pkl', 'rb') as f:
             input_list = pickle.load(f)
@@ -88,8 +87,8 @@ def main(args):
     
 
 #  use ecfp feature
-    for i, x in enumerate(input_list):
-        input_list[i].append(get_ecfp_fingerprints(x[7], args))
+    # for i, x in enumerate(input_list):
+    #     input_list[i].append(get_ecfp_fingerprints(x[7], args))
 
     if 'PPI' in args.model:
         gene2vecdict, gene_info, ppi_adj, ppi_nx, g2v_embedding, get_gex_idxs, args = get_ppi_features(gene_info, args)

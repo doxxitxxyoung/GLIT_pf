@@ -83,7 +83,8 @@ class GEX_PPI_GAT_cat4_MLP(nn.Module):
 
         self.tmp_batch_size = x[4].shape[0]
 
-        drug_input = x[8].float().to(device)
+        # drug_input = x[8].float().to(device)
+        drug_input = x[0].float().to(device)
         gex_input = x[1][:, get_gex_idxs].float().to(device) # bs x n genes x 1
         dose = x[2].float().to(device).view(-1,1)
         duration = x[3].float().to(device).view(-1,1)
