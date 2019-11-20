@@ -19,66 +19,35 @@ model = Model_serve()
 def home():
     return 'Hello world'
 
-# @app.route('/predict', methods=['GET'])
-# def predict():
-
-#     url = request.args['url']
-#     app.logger.info("Classifying sample %s" % (url),)
-#     response = request.get(url)
-#     sample = BytesIO(response.content)
-
-#     t = time.time()
-#     pred_class, pred_idx, outputs = learn.predict(sample)
-
-#     dt = time.time()-t
-#     app.logger.info("Execution time : %0.02f seconds" % (dt))
-#     app.logger.info("Sample %s classified as %s"%(url, pred_class))
-
-#     return jsonify(pred_class)
-
-"""
-@app.route('/glit_predict', methods=['GET'])
-def glit_predict():
-
-    data = {'success':False}
-    if flask.request.files.get("sample"):
-        sample = flask.request.files["sample"]
-        result = model.predict(sample)
-
-        data['response'] = result
-        data['success'] = True
-
-    return jsonify(data)
-
 
 @app.route('/glit_predict', methods=['GET'])
 def glit_predict():
 
-    data = {'success':False}
-    if flask.request.files.get("sample"):
-        sample = flask.request.form.get('item')
-        result = model.predict(sample)
+    t = time.time() # get execution time
 
-        data['response'] = result
-        data['success'] = True
+    if flask.request.method == 'GET':
+    
 
-    return jsonify(data)
-"""
-@app.route('/glit_predict', methods=['POST'])
-def glit_predict():
-    if flask.request.method == 'POST':
-        file = flask.request.files['file']
+        ecfp = flask.request.form.getlist('ecfp')
+        gex = flask.request.form.getlist('gex')
+        dosage = flask.request.form.get('dosage')
+        duration = flask.request.form.get('duration')
+        drugname = flask.request.form.get('drugname')        
 
-        result = model.predict(file)
 
-    return jsonify({'pred_proba': result})
+        result = model.predict(ecfp, gex, dosage, duration)
+        result = float(result[0][1])
+        
+
+    dt = time.time() - t
+    app.logger.info("Execution time: %0.02f seconds" % (dt))
+
+
+    return jsonify({'ecfp': ecfp[0], 'gex':gex[0], 'dosage':dosage, 'duration':duration, 'drugname':drugname, 'predicted_prob':result})
 
 
 if __name__ == '__main__':
-    # app.run(host = '0.0.0.0', debug = True, port = PORT)
-    # app.run(host = '0.0.0.0')
+
     app.run()
 
 # FLASK_ENV=development FLASK_APP=server.py flask run
-
-# needs to modify flask.request.files to somthing that encodes python list

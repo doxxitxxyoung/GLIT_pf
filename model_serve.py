@@ -83,7 +83,8 @@ class Model_serve():
         self.ppi_adj = ppi_adj
         self.args = args
 
-    def predict(test_list):
+    # def predict(self, test_list):
+    def predict(self, ecfp, gex, dosage, duration):
         """
         @input
         test_list : a list of ecfp, gex, dosage, duration -> turned into torch dataloader inside this module
@@ -92,14 +93,25 @@ class Model_serve():
         dosage: type = np.float64
         duration : type = np.ndarray
         """
-        train_loader = DataLoader(dataset = test_list,
-                        batch_size = 1,
-                        shuffle = False)
+        # test_loader = DataLoader(dataset = test_list,
+        #                 batch_size = 1,
+        #                 shuffle = False)
 
-        inferred_list = []
-        for i, x in enumerate(train_loader):
-            proba = self.model(x, self.ppi_adj, self.get_gex_idxs, self.device, self.args, None, False)
-            proba = F.softmax(proba)
-            inferred_list.append(proba)
-            
-        return inferred_list
+
+        # inferred_list = []
+        # for i, x in enumerate(test_loader):
+        #     proba = self.model(x, self.ppi_adj, self.get_gex_idxs, self.device, self.args, None, False)
+        #     proba = F.softmax(proba)
+        #     inferred_list.append(proba)
+
+        # return inferred_list
+        x = [torch.tensor([float(x) for x in ecfp]).view(1, -1), 
+            torch.tensor([float(x) for x in gex]).view(1, -1, 1), 
+            torch.tensor(float(dosage)), 
+            torch.tensor(int(duration))]
+
+        # proba = self.model(x, self.ppi_adj, self.get_gex_idxs, self.device, self.args, None, False)
+        proba = self.model.forward_serving(x, self.ppi_adj, self.get_gex_idxs, self.device, self.args, None, False)
+        proba = F.softmax(proba)
+        # print(proba)
+        return proba
