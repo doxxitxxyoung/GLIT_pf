@@ -41,6 +41,9 @@ def Get_Models(ppi_adj, g2v_embedding, args, device):
 
     if args.model == 'GEX_PPI_GAT_cat4_MLP':
         return GEX_PPI_GAT_cat4_MLP(ppi_adj, g2v_embedding, args).to(device)
+
+    elif args.model == 'GEX_PPI_GAT_cat7_MLP':
+        return GEX_PPI_GAT_cat7_MLP(ppi_adj, g2v_embedding, args).to(device)
     
 def main(args):
 
