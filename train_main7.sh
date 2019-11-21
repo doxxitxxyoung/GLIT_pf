@@ -1,6 +1,6 @@
 #!/bin/bash
 
-lr="5e-5"
+lr="1e-3"
 wd="1e-5"
 epoch=20
 

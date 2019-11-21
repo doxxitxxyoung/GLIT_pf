@@ -14,7 +14,8 @@ USER root
 
 RUN apt-get update
 #RUN apt-get install sudo
-RUN apt-get install unzip
+#RUN apt-get install unzip
+RUN apt install unzip
 # Update to torch 1.1
 
 RUN conda install pytorch-cpu==1.1.0 torchvision-cpu==0.3.0 cpuonly -c pytorch
@@ -40,11 +41,15 @@ RUN pip install gdown
 WORKDIR GLIT_pf
 WORKDIR data
 RUN gdown https://drive.google.com/uc?id=1sTrPgiatGqKTjvxN5ppLxNO4iBKQ6snv
-RUN unzip data.zip
+RUN unzip -o data.zip
+RUN rm data.zip
+RUN rm labeled_list_woAmbi_92742_70138_old.pkl
+
 WORKDIR GLIT_pf
 WORKDIR params
 RUN gdown https://drive.google.com/uc?id=1EpAGz5Ztw3wKV-4H8nC4xF5hLwoCdixu
-RUN unzip models.zip
+RUN unzip -o models.zip
+RUN rm models.zip
 WORKDIR GLIT_pf
 
 #RUN unzip data.zip -d data
@@ -52,8 +57,8 @@ WORKDIR GLIT_pf
 
 # run flask server
 RUN pip install flask
-#RUN python server.py
-CMD ["python", "server.py"]
+RUN python server.py
+#CMD ["python", "server.py"]
 
 
 #FLASK_ENV=development FLASK_APP=server.py flask run

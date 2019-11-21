@@ -4,3 +4,4 @@ models
 *.swp
 *.pkl
 __pycache__
+*.pem

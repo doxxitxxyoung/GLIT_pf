@@ -262,6 +262,7 @@ class GEX_PPI_GAT_cat7_MLP(nn.Module):
     def __init__(self, ppi_adj, g2v_embedding, args):
         super(GEX_PPI_GAT_cat7_MLP, self).__init__()
 
+        D_DIM = 64
 
         print('num genes : '+str(args.num_genes))
         self.bn1 = nn.BatchNorm1d(args.ecfp_nBits)
@@ -290,7 +291,7 @@ class GEX_PPI_GAT_cat7_MLP(nn.Module):
 
 
         # self.pred_emb_dim = args.drug_embed_dim + (args.num_gcn_hops*args.gcn_hidden_dim1*args.gat_num_heads) + 2
-        self.pred_emb_dim = args.drug_embed_dim + (args.num_gcn_hops*args.gcn_hidden_dim1*args.gat_num_heads) + 64 + 64
+        self.pred_emb_dim = args.drug_embed_dim + (args.num_gcn_hops*args.gcn_hidden_dim1*args.gat_num_heads) + D_DIM + D_DIM
 
         self.pred_mlp1 = nn.Linear(self.pred_emb_dim, int(self.pred_emb_dim*2/3), bias = True)
         self.pred_mlp2 = nn.Linear(int(self.pred_emb_dim*2/3), int(self.pred_emb_dim/3), bias = True)
@@ -318,8 +319,8 @@ class GEX_PPI_GAT_cat7_MLP(nn.Module):
         self.readout_mlp3 = nn.Linear(int(args.num_genes/3), 1, bias = True)
 
         #   embeddings for dosage & duration. set to dim=64
-        self.dosage_emb = nn.Embedding(1, 64)
-        self.duration_emb = nn.Embedding(1, 64)
+        self.dosage_emb = nn.Embedding(1, D_DIM)
+        self.duration_emb = nn.Embedding(1, D_DIM)
 
 
     def forward(self, x, adj, get_gex_idxs, device, args, epoch, training = True):
