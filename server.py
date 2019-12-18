@@ -1,11 +1,9 @@
-#import libaries
-# from flask import Flask, request, jsonify, render_template
 import flask
 from flask import Flask, jsonify
 import logging
 from setting import *
-import fastai
-from fastai import *
+#import fastai
+#from fastai import *
 
 from model_serve import Model_serve
 
@@ -17,7 +15,7 @@ model = Model_serve()
 
 @app.route('/')
 def home():
-    return 'Hello world'
+    return 'Inference implementation of GLIT'
 
 
 @app.route('/glit_predict', methods=['GET'])

@@ -7,7 +7,9 @@ import sys
 import pickle
 
 #API_URL = 'http://localhost:5000/glit_predict'
-API_URL = 'https://34.97.37.164'
+#API_URL = 'https://34.97.37.164'
+#API_URL = 'https://34.97.137.23'
+API_URL = 'https://34.97.21.202'
 
 def predict_result(ecfp, gex, dosage, duration, drugname):
     # print(x)

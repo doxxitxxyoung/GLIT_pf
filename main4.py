@@ -48,6 +48,12 @@ def Get_Models(ppi_adj, g2v_embedding, args, device):
     elif args.model == 'GEX_PPI_GCN_cat4_MLP':
         return GEX_PPI_GCN_cat4_MLP(ppi_adj, g2v_embedding, args).to(device)
     
+    elif args.model == 'GEX_PPI_SAGE_cat4_MLP':
+        return GEX_PPI_SAGE_cat4_MLP(ppi_adj, g2v_embedding, args).to(device)
+
+    elif args.model == 'GEX_PPI_HIGHER_cat4_MLP':
+        return GEX_PPI_HIGHER_cat4_MLP(ppi_adj, g2v_embedding, args).to(device)
+
 def main(args):
 
     os.environ["CUDA_VISIBLE_DEVICES"] = args.device[-1]
