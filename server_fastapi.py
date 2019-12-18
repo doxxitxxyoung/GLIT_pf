@@ -8,11 +8,11 @@ from starlette.responses import JSONResponse, Response
 import server_fastapi_router
 from fastapi import File, Form, UploadFile
 
-import inspect
+import time
 
 from model_serve import Model_serve
 
-model = Model_serve
+model = Model_serve()
 
 
 
@@ -57,11 +57,11 @@ def glit_predict(request: InputData):
 
 
     dt = time.time() - t
-    app.logger.info("Execution time: %0.02f seconds" % (dt))
+#    app.logger.info("Execution time: %0.02f seconds" % (dt))
 
-    return jsonify({'ecfp': ecfp[0], 'gex':gex[0], 'dosage':dosage, 'duration':duration, 'drugname':drugname, 'predicted_prob':result})
+#    return jsonify({'ecfp': ecfp[0], 'gex':gex[0], 'dosage':dosage, 'duration':duration, 'drugname':drugname, 'predicted_prob':result})
+    return JSONResponse(content = {'ecfp': ecfp[0], 'gex':gex[0], 'dosage':dosage, 'duration':duration, 'drugname':drugname, 'predicted_prob':result})
 
-    return request_dict
 
 
 
