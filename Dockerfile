@@ -33,7 +33,7 @@ RUN pip install torch-geometric==1.1.2
 RUN conda install -c anaconda networkx==2.3
 #RUN conda install -c rdkit rdkit
 RUN conda install -c anaconda scipy==1.2
-
+RUN conda install -c anaconda numpy==1.16
 
 RUN pip install flask
 RUN pip install fastapi pydantic uvicorn
