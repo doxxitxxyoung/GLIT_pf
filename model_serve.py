@@ -18,7 +18,7 @@ from sklearn import preprocessing
 # from sklearn.metrics import f1_score, roc_auc_score, average_precision_score, accuracy_score
 
 from model import *
-from utils2 import *
+#from utils2 import *
 
 import argparse
 
