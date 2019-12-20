@@ -62,6 +62,26 @@ def Get_Models(ppi_adj, g2v_embedding, args, device):
     if args.model == 'GEX_PPI_GAT_cat4_MLP':
         return GEX_PPI_GAT_cat4_MLP(ppi_adj, g2v_embedding, args).to(device)
 
+def get_gene_info(args):
+    if args.gex_feat == 'l1000':
+        gene_info = pd.read_csv('data/GSE92742/GSE92742_Broad_LINCS_gene_info.txt',
+                           delimiter = '\t',
+                           index_col = 0)
+        gene_info = gene_info.loc[gene_info.loc[:, 'pr_is_lm'] == 1].copy()
+    elif args.gex_feat == 'ptgs_total':
+        gene_info = pd.read_csv('data/GSE92742/GSE92742_Broad_LINCS_gene_info_ptgs_total.txt',
+                           delimiter = '\t',
+                           index_col = 0)
+    elif args.gex_feat == 'ptgs_core':
+        gene_info = pd.read_csv('data/GSE92742/GSE92742_Broad_LINCS_gene_info_ptgs_core.txt',
+                           delimiter = '\t',
+                           index_col = 0)
+    else:
+        gene_info = pd.read_csv('data/GSE92742/GSE92742_Broad_LINCS_gene_info.txt',
+                           delimiter = '\t',
+                           index_col = 0)
+    return gene_info
+
 class Model_serve():
     def __init__(self):
         args = Get_args()

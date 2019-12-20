@@ -1,6 +1,7 @@
 # Currently written for cpu version
 
 FROM pytorch/pytorch:0.4.1-cuda9-cudnn7-runtime
+#FROM ubuntu:16.04
 
 
 COPY . /root
@@ -30,9 +31,8 @@ RUN pip install torch-cluster==1.2.4
 #RUN pip install torch-spline-conv==1.1.0
 RUN pip install torch-geometric==1.1.2
 RUN conda install -c anaconda networkx==2.3
-RUN conda install -c rdkit rdkit
+#RUN conda install -c rdkit rdkit
 RUN conda install -c anaconda scipy==1.2
-RUN conda install -c anaconda networkx==2.3
 
 
 RUN pip install flask
@@ -72,6 +72,9 @@ WORKDIR ../
 
 
 #EXPOSE 80
+
+#ASCII ISSUE
+RUN export LC_ALL=C.UTF-8
 
 #CMD ["uvicorn", "server_fastapi:app", "--reload"]
 CMD uvicorn server_fastapi:app --host 0.0.0.0 --port 8044
