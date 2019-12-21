@@ -37,6 +37,7 @@ RUN conda install -c anaconda numpy==1.16
 
 RUN pip install flask
 RUN pip install fastapi pydantic uvicorn
+RUN pip install email-validator
 
 
 RUN git clone https://github.com/doxxitxxyoung/GLIT_pf.git
@@ -77,7 +78,8 @@ WORKDIR ../
 RUN export LC_ALL=C.UTF-8
 
 #CMD ["uvicorn", "server_fastapi:app", "--reload"]
-CMD uvicorn server_fastapi:app --host 0.0.0.0 --port 8044
+#CMD uvicorn server_fastapi:app --port 8044
+CMD ["uvicorn", "server_fastapi:app", "--reload", "--port", "8044"]
 
 #CMD ["uvicorn", "--host", "0.0.0.0", "--port", "80"]
 
