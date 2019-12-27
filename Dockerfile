@@ -80,8 +80,10 @@ WORKDIR ../
 #EXPOSE 80
 
 #ASCII ISSUE
-RUN export LC_ALL=C.UTF-8
-RUN export LANG=C.UTF-8
+#RUN export LC_ALL=C.UTF-8
+#RUN export LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
 
 #CMD ["uvicorn", "server_fastapi:app", "--reload"]
 #CMD uvicorn server_fastapi:app --port 8044
