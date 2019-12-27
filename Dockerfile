@@ -51,10 +51,15 @@ RUN pip install gdown
 #WORKDIR ./root
 
 WORKDIR data
-RUN gdown https://drive.google.com/uc?id=1sTrPgiatGqKTjvxN5ppLxNO4iBKQ6snv
-RUN unzip -o data.zip
-RUN rm data.zip
-RUN rm labeled_list_woAmbi_92742_70138_old.pkl
+#RUN gdown https://drive.google.com/uc?id=1sTrPgiatGqKTjvxN5ppLxNO4iBKQ6snv
+#RUN unzip -o data.zip
+#RUN rm data.zip
+#RUN rm labeled_list_woAmbi_92742_70138_old.pkl
+
+RUN gdown https://drive.google.com/uc?id=146o7-P6ElDZHu_KlS-VMu6X8_FeWHZOc
+RUN unzip -o data_serve.zip
+RUN rm data_serve.zip
+#RUN rm labeled_list_woAmbi_92742_70138_old.pkl
 WORKDIR ../
 
 WORKDIR params
@@ -76,10 +81,12 @@ WORKDIR ../
 
 #ASCII ISSUE
 RUN export LC_ALL=C.UTF-8
+RUN export LANG=C.UTF-8
 
 #CMD ["uvicorn", "server_fastapi:app", "--reload"]
 #CMD uvicorn server_fastapi:app --port 8044
-CMD ["uvicorn", "server_fastapi:app", "--reload", "--port", "8044"]
+#CMD ["uvicorn", "server_fastapi:app", "--reload", "--port", "8044"]
+CMD ["uvicorn", "server_fastapi:app"]
 
 #CMD ["uvicorn", "--host", "0.0.0.0", "--port", "80"]
 

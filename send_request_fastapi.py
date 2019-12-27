@@ -2,8 +2,8 @@
 
 # works on local server atm
 
-import requests
-#from starlette import requests
+#import requests
+from starlette import requests
 from starlette.testclient import TestClient
 from pydantic import BaseModel
 import sys
@@ -16,7 +16,8 @@ from typing import List
 #API_URL = 'http://127.0.0.1:8000/glit_predict'
 #API_URL = 'http://0.0.0.0:8044/glit_predict'
 #API_URL = 'http://127.0.0.1:8044/glit_predict'
-API_URL = 'http://localhost:80/glit_predict'
+#API_URL = 'http://localhost:8000/glit_predict'
+API_URL = 'http://127.0.0.1:8000/glit_predict'
 #API_URL = 'http://34.97.37.164'
 
 """
