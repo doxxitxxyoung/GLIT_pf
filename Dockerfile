@@ -62,7 +62,7 @@ RUN rm data_serve.zip
 #RUN rm labeled_list_woAmbi_92742_70138_old.pkl
 WORKDIR ../
 
-WORKDIR params
+WORKDIR models
 RUN gdown https://drive.google.com/uc?id=1EpAGz5Ztw3wKV-4H8nC4xF5hLwoCdixu
 RUN unzip -o models.zip
 RUN rm models.zip
