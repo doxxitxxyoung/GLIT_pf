@@ -65,22 +65,24 @@ def Get_Models(ppi_adj, g2v_embedding, args, device):
 
 def get_gene_info(args):
     if args.gex_feat == 'l1000':
-        gene_info = pd.read_csv('data/GSE92742/GSE92742_Broad_LINCS_gene_info.txt',
+        gene_info = pd.read_csv('./data/GSE92742/GSE92742_Broad_LINCS_gene_info.txt',
                            delimiter = '\t',
                            index_col = 0)
         gene_info = gene_info.loc[gene_info.loc[:, 'pr_is_lm'] == 1].copy()
+    """
     elif args.gex_feat == 'ptgs_total':
         gene_info = pd.read_csv('data/GSE92742/GSE92742_Broad_LINCS_gene_info_ptgs_total.txt',
                            delimiter = '\t',
                            index_col = 0)
     elif args.gex_feat == 'ptgs_core':
-        gene_info = pd.read_csv('data/GSE92742/GSE92742_Broad_LINCS_gene_info_ptgs_core.txt',
+        gene_info = pd.read_csv('./data/GSE92742/GSE92742_Broad_LINCS_gene_info_ptgs_core.txt',
                            delimiter = '\t',
                            index_col = 0)
     else:
-        gene_info = pd.read_csv('data/GSE92742/GSE92742_Broad_LINCS_gene_info.txt',
+        gene_info = pd.read_csv('./data/GSE92742/GSE92742_Broad_LINCS_gene_info.txt',
                            delimiter = '\t',
                            index_col = 0)
+    """
     return gene_info
 
 class Model_serve():
@@ -94,7 +96,8 @@ class Model_serve():
         device = torch.device(args.device)
         model = Get_Models(ppi_adj, g2v_embedding, args, device)
 
-        model_path = 'models/'+str(args.model)+str(args.num_gcn_hops)+'_'+str(args.drug_feat)+'_'+str(args.gex_feat)+'_'+str(args.learning_rate)+'_'+str(args.weight_decay)+'_'+str(args.n_epochs)+'_'+str(args.g2v_pretrained)+'_'+str(args.seed)+'_ver'+str(args.dataset_ver) 
+        #model_path = 'models/'+str(args.model)+str(args.num_gcn_hops)+'_'+str(args.drug_feat)+'_'+str(args.gex_feat)+'_'+str(args.learning_rate)+'_'+str(args.weight_decay)+'_'+str(args.n_epochs)+'_'+str(args.g2v_pretrained)+'_'+str(args.seed)+'_ver'+str(args.dataset_ver) 
+        model_path = './models/'+str(args.model)+str(args.num_gcn_hops)+'_'+str(args.drug_feat)+'_'+str(args.gex_feat)+'_'+str(args.learning_rate)+'_'+str(args.weight_decay)+'_'+str(args.n_epochs)+'_'+str(args.g2v_pretrained)+'_'+str(args.seed)+'_ver'+str(args.dataset_ver) 
 
         model.load_state_dict(torch.load(model_path, map_location = args.device))
 

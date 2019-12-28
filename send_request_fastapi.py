@@ -2,8 +2,8 @@
 
 # works on local server atm
 
-#import requests
-from starlette import requests
+import requests
+#from starlette import requests
 from starlette.testclient import TestClient
 from pydantic import BaseModel
 import sys
