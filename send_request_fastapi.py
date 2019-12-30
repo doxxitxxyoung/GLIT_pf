@@ -17,7 +17,9 @@ from typing import List
 #API_URL = 'http://0.0.0.0:8044/glit_predict'
 #API_URL = 'http://127.0.0.1:8044/glit_predict'
 #API_URL = 'http://localhost:8000/glit_predict'
-API_URL = 'http://127.0.0.1:8000/glit_predict'
+#API_URL = 'http://127.0.0.1:8000/glit_predict'
+API_URL = 'http://34.97.50.3/glit_predict'
+
 #API_URL = 'http://34.97.37.164'
 
 """

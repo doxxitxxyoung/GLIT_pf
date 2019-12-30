@@ -32,9 +32,16 @@ app = FastAPI()
 #app.include_router(server_fastapi_router, prefix='/glit')
 
 
+"""
 @app.get("/healthcheck", status_code=200)
 async def root():
     return "Inference implementation of GLIT on FastAPI"
+"""
+
+@app.get("/")
+def root():
+    return "Inference implementation of GLIT on FastAPI"
+
 
 @app.post('/glit_predict/')
 #@app.route('/glit_predict')
