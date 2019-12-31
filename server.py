@@ -45,7 +45,9 @@ def glit_predict():
 
 
 if __name__ == '__main__':
+    HOST='0.0.0.0'
+    PORT=8080
 
-    app.run()
+    app.run(HOST, PORT, debug=True)
 
 # FLASK_ENV=development FLASK_APP=server.py flask run
