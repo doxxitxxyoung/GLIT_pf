@@ -1,8 +1,10 @@
 #runtime: python
-runtime: custom # for gcloud app deploy for dockerfile
+#runtime: custom # for gcloud app deploy for dockerfile
+runtime: python
 api_version: 1
 env: flex
-entrypoint: gunicorn -b $PORT server:app -w 4 -k uvicorn.workers.UvicornWorker
+#entrypoint: uvicorn -b $PORT server:app -w 4 -k uvicorn.workers.UvicornWorker
+entrypoint: gunicorn -b $PORT server:app
 
 runtime_config:
         python_version: 3

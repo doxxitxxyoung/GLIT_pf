@@ -1,4 +1,7 @@
 fastapi
 starlette
 pydantic
+gunicorn
+Flask
+numpy
 

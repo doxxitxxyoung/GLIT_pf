@@ -45,7 +45,7 @@ def glit_predict():
 
 
 if __name__ == '__main__':
-    HOST='0.0.0.0'
+    HOST='127.0.0.1'
     PORT=8080
 
     app.run(HOST, PORT, debug=True)
