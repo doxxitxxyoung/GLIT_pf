@@ -4,16 +4,21 @@
 #FROM ubuntu:16.04
 FROM gcr.io/glit-server-fast/glit-server-fast:v2
 
+RUN pip install Flask
+RUN pip install gunicorn
 
 COPY . /root
 
 WORKDIR /root
 USER root
 
-ENV LC_ALL=C.UTF-8
-ENV LANG=C.UTF-8
+#ENV LC_ALL=C.UTF-8
+#ENV LANG=C.UTF-8
 
 EXPOSE 8080
-CMD ["gunicorn", "server:app", "-b", ":8080", "--timeout", "1800"]
+#CMD ["gunicorn", "server:app", "-b", ":8080", "--timeout", "1800"]
+ENTRYPOINT ["gunicorn"]
+CMD ["server:app"]
+
 #CMD ["uvicorn", "server_fastapi:app"]
 
