@@ -54,8 +54,6 @@ def Get_Models(ppi_adj, g2v_embedding, args, device):
     elif args.model == 'GEX_PPI_HIGHER_cat4_MLP':
         return GEX_PPI_HIGHER_cat4_MLP(ppi_adj, g2v_embedding, args).to(device)
 
-valid_test_results = []
-
 def main(args):
 
     os.environ["CUDA_VISIBLE_DEVICES"] = args.device[-1]
@@ -171,15 +169,6 @@ def main(args):
         test_drug_labels_avg, test_drug_preds_avg, test_drug_probas_avg, \
                 test_drug_names_avg = Get_Drugwise_Preds(
                         test_label, test_pred, test_proba, test_drug_names)
-
-        #   Get valid test results for DB. At tmp.
-        for i, x in enumerate(valid_drug_names_avg):
-            valid_test_results.append([x, valid_drug_preds_avg, valid_drug_probas_avg])
-        for i, x in enumerate(test_drug_names_avg):
-            valid_test_results.append([x, test_drug_preds_avg, test_drug_probas_avg])
-        with open('valid_test_results_tmp.pkl' ,'wb') as f:
-            pickle.dump(valid_test_results, f)
-
             
         #   save model state_dict
         if (args.save_model == True) & (args.eval == False):
