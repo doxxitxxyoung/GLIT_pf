@@ -18,7 +18,8 @@ def home():
     print('Inference Implementation of GLIT')
     return 'Inference implementation of GLIT'
 
-
+#    Using GET methods
+"""
 @app.route('/glit_predict', methods=['GET'])
 def glit_predict():
 
@@ -32,6 +33,33 @@ def glit_predict():
         dosage = flask.request.form.get('dosage')
         duration = flask.request.form.get('duration')
         drugname = flask.request.form.get('drugname')        
+
+
+        result = model.predict(ecfp, gex, dosage, duration)
+        result = float(result[0][1])
+        
+
+    dt = time.time() - t
+    app.logger.info("Execution time: %0.02f seconds" % (dt))
+
+
+    return jsonify({'ecfp': ecfp[0], 'gex':gex[0], 'dosage':dosage, 'duration':duration, 'drugname':drugname, 'predicted_prob':result})
+"""
+
+#    Using POST method
+@app.route('/glit_predict', methods=['POST'])
+def glit_predict():
+
+    t = time.time() # get execution time
+
+    if flask.request.method == 'POST':
+   
+        ecfp = flask.request.json['ecfp']
+        gex = flask.request.json['gex']
+        dosage = flask.request.json['dosage']
+        duration = flask.request.json['duration']
+        drugname = flask.request.json['drugname']
+
 
 
         result = model.predict(ecfp, gex, dosage, duration)

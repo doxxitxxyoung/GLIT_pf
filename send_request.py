@@ -12,8 +12,8 @@ API_URL = 'http://localhost:8080/glit_predict'
 def predict_result(ecfp, gex, dosage, duration, drugname):
     # print(x)
     payload = {'ecfp':ecfp, 'gex': gex, 'dosage': dosage, 'duration': duration, 'drugname': drugname}
-    # r = requests.post(API_URL, files=payload)
-    r = requests.get(API_URL, data=payload)   
+    r = requests.post(API_URL, files=payload)
+    #r = requests.get(API_URL, data=payload)   
 
     return r
 
