@@ -17,6 +17,6 @@ resources:
         disk_size_gb: 20
         
 readiness_check:
-	path: "/readiness_check"
-	failure_threshold: 5
-	app_start_timeout_sec: 1500
+        path: "/readiness_check"
+        failure_threshold: 5
+        app_start_timeout_sec: 1500

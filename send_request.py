@@ -7,9 +7,9 @@ import sys
 import pickle
 import json
 
-API_URL = 'http://localhost:8080/glit_predict'
-#API_URL = 'https://glit-server-fast.appspot.com/glit_predict'
-#API_URL = 'http://34.97.37.164'
+#API_URL = 'http://localhost:8080/glit_predict'
+#API_URL = 'https://glit-server-fast.appspot.com/glit_predict' # for Google App Engine
+API_URL = 'http://34.97.190.179/glit_predict' # for Google Kubernetes Engine
 
 # GET method
 """
