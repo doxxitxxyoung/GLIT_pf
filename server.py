@@ -1,6 +1,7 @@
 import flask
 from flask import Flask, jsonify
 import logging
+import json
 from setting import *
 #import fastai
 #from fastai import *
@@ -53,14 +54,13 @@ def glit_predict():
     t = time.time() # get execution time
 
     if flask.request.method == 'POST':
-   
-        ecfp = flask.request.json['ecfp']
-        gex = flask.request.json['gex']
-        dosage = flask.request.json['dosage']
-        duration = flask.request.json['duration']
-        drugname = flask.request.json['drugname']
+        payload = json.loads(flask.request.get_json())
 
-
+        ecfp = payload['ecfp']
+        gex = payload['gex']
+        dosage = payload['dosage']
+        duration = payload['duration']
+        drugname = payload['drugname']
 
         result = model.predict(ecfp, gex, dosage, duration)
         result = float(result[0][1])
