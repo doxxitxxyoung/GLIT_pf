@@ -17,8 +17,9 @@ USER root
 
 EXPOSE 8080
 #CMD ["gunicorn", "server:app", "-b", ":8080", "--timeout", "1800"]
-ENTRYPOINT ["gunicorn"]
-CMD ["server:app"]
+#ENTRYPOINT ["gunicorn"]
+#CMD ["server:app"]
+CMD ["python", "./server.py"]
 
 #CMD ["uvicorn", "server_fastapi:app"]
 
