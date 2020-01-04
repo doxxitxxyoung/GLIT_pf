@@ -7,9 +7,21 @@ import sys
 import pickle
 import json
 
-#API_URL = 'http://localhost:8080/glit_predict'
-#API_URL = 'https://glit-server-fast.appspot.com/glit_predict' # for Google App Engine
-API_URL = 'http://34.97.190.179/glit_predict' # for Google Kubernetes Engine
+import argparse
+
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument('--method', type = str, default = 'gke')
+
+args = parser.parse_args()
+
+if args.method == 'local':
+    API_URL = 'http://localhost:8080/glit_predict'
+elif args.method == 'gae':
+    API_URL = 'https://glit-server-fast.appspot.com/glit_predict' # for Google App Engine
+else:
+    API_URL = 'http://34.97.190.179/glit_predict' # for Google Kubernetes Engine
 
 # GET method
 """

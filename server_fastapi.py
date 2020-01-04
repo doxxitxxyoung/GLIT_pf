@@ -43,7 +43,7 @@ def root():
     return "Inference implementation of GLIT on FastAPI"
 
 
-@app.post('/glit_predict/')
+@app.post('/glit_predict')
 #@app.route('/glit_predict')
 #@app.route('/glit_predict', method=['GET', 'POST'])
 #def glit_predict(request: dict):
