@@ -17,19 +17,21 @@ app = Flask(__name__)
 model = Model_serve()
 
 
-# Connect to redis api, get item by name and 
-import redis
+# Connect to mongo db, get item by drugname and cellline 
+from pymongo import MongoClient
 
 HOST = 'localhost'
-PORT = 6379
+PORT = 27017
 
-client = redis.Redis(host = HOST, port = PORT)
+client = MongoClient(host = HOST, port = PORT)
+db = client['glit-db']
+posts = db.posts # posts == collection
 
 
 @app.route('/')
 def home():
-    print('Inference Implementation of GLIT')
-    return 'Inference implementation of GLIT'
+    print('Inference Implementation of GLIT w/ MongoDB')
+    return 'Inference implementation of GLIT w/ MongoDB'
 
 #    Using GET methods
 @app.route('/glit_predict', methods=['GET'])
@@ -42,16 +44,24 @@ def glit_predict():
         drugname = request.args.get('drugname')
         cellline = request.args.get('cellline')
 
+        selected_doc = posts.find({'drugname': drugname, 'cellline': cellline})
 
-        name = '_'.join([drugname, cellline])
+        #   Only select single doc, ATM.
+        selected_doc = selected_doc.__getitem__(0)
 
+        ecfp = selected_doc['ecfp']
+        gex = selected_doc['gex']
+        dosage = selected_doc['dosage']
+        duration = selected_doc['duration']
+        label = selected_doc['label']
+
+        """
         ecfp = np.frombuffer(client.hget(name, 'ecfp'), dtype = np.int64)
         gex = np.frombuffer(client.hget(name, 'gex'), dtype = np.float64)
         dosage = client.hget(name, 'dosage')
         duration = client.hget(name, 'duration')
         label = client.hget(name, 'label')
-
-
+        """
 
         result = model.predict(ecfp, gex, dosage, duration)
         result = float(result[0][1])
@@ -61,7 +71,7 @@ def glit_predict():
 #    app.logger.info("Execution time: %0.02f seconds" % (dt))
 
 #    return jsonify({'ecfp': ecfp[0], 'gex':gex[0], 'dosage':dosage, 'duration':duration, 'drugname':drugname, 'predicted_prob':result})
-    return jsonify({'dosage':str(dosage), 'duration': str(duration), 'drugname': drugname, 'predicted_prob':result})
+    return jsonify({'dosage':str(dosage), 'duration': str(duration), 'drugname':str(drugname), 'predicted_prob':result})
 #    return jsonify({'drugname':drugname, 'cellline':cellline, 'predicted_prob':result})
 
 """
