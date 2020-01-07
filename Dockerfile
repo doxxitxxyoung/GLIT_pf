@@ -16,7 +16,7 @@ USER root
 #ENV LANG=C.UTF-8
 
 EXPOSE 8080
-#CMD ["gunicorn", "server_fastapi:app", "-b", ":8080", "--timeout", "1800"]
+#CMD ["gunicorn", "server_fastapi:app", "-b", ":8080", "--timeout", "1500"]
 #ENTRYPOINT ["gunicorn"]
 #CMD ["server:app"]
 #CMD ["python", "./server.py"]
