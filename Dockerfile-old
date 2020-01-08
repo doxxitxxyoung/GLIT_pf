@@ -88,6 +88,7 @@ ENV LANG=C.UTF-8
 #CMD ["uvicorn", "server_fastapi:app", "--reload"]
 #CMD uvicorn server_fastapi:app --port 8044
 #CMD ["uvicorn", "server_fastapi:app", "--reload", "--port", "8044"]
+
 CMD ["uvicorn", "server_fastapi:app"]
 
 #CMD ["uvicorn", "--host", "0.0.0.0", "--port", "80"]

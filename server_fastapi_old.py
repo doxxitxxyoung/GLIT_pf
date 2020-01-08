@@ -1,9 +1,8 @@
-import uvicorn
 from fastapi import FastAPI, APIRouter, Query
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 from typing import List
-#from starlette.requests import Request
+from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
 
 import server_fastapi_router
@@ -24,7 +23,9 @@ class InputData(BaseModel):
     dosage: float
     duration: int
     drugname: str
-    cellline: str
+    """
+    dosage: float
+    """
 
 
 app = FastAPI()
@@ -39,16 +40,15 @@ async def root():
 
 @app.get("/")
 def root():
-    print("Inference Implementation of GLIT on FsatAPI")
     return "Inference implementation of GLIT on FastAPI"
 
-#   Post not using pydantic
 
+@app.post('/glit_predict')
+#@app.route('/glit_predict')
+#@app.route('/glit_predict', method=['GET', 'POST'])
+#def glit_predict(request: dict):
 
-#   Post using pydantic
-@app.post('/glit_predict/')
-#@app.post('/glit_predict/{request}')
-async def glit_predict(request: InputData):
+def glit_predict(request: InputData):
     request_dict = request.dict()
 
     t = time.time() # get execution time
@@ -64,10 +64,10 @@ async def glit_predict(request: InputData):
 
 
     dt = time.time() - t
+#    app.logger.info("Execution time: %0.02f seconds" % (dt))
 
 #    return jsonify({'ecfp': ecfp[0], 'gex':gex[0], 'dosage':dosage, 'duration':duration, 'drugname':drugname, 'predicted_prob':result})
-#    return JSONResponse(content = {'ecfp': ecfp[0], 'gex':gex[0], 'dosage':dosage, 'duration':duration, 'drugname':drugname, 'predicted_prob':result})
-    return {'ecfp': ecfp[0], 'gex':gex[0], 'dosage':dosage, 'duration':duration, 'drugname':drugname, 'predicted_prob':result}
+    return JSONResponse(content = {'ecfp': ecfp[0], 'gex':gex[0], 'dosage':dosage, 'duration':duration, 'drugname':drugname, 'predicted_prob':result})
 
 
 
@@ -127,27 +127,5 @@ def glit_predict(ecfp: ):
 
     return jsonify({'ecfp': ecfp[0], 'gex':gex[0], 'dosage':dosage, 'duration':duration, 'drugname':drugname, 'predicted_prob':result})
 """
-"""
-#   Using GET method, and List from typing
-@app.get('/glit_predict/')
-async def glit_predict(ecfp: List[int], gex: List[float], dosage: float, duration: int, drugname: str, cellline: str):
-
-    result = model.predict(ecfp, gex, dosage, duration)
-    result = float(result[0][1])
 
 
-    dt = time.time() - t
-
-#    return jsonify({'ecfp': ecfp[0], 'gex':gex[0], 'dosage':dosage, 'duration':duration, 'drugname':drugname, 'predicted_prob':result})
-#    return JSONResponse(content = {'ecfp': ecfp[0], 'gex':gex[0], 'dosage':dosage, 'duration':duration, 'drugname':drugname, 'predicted_prob':result})
-    return {'ecfp': ecfp[0], 'gex':gex[0], 'dosage':dosage, 'duration':duration, 'drugname':drugname, 'predicted_prob':result}
-
-"""
-
-"""
-if __name__ == "__main__":
-    HOST = 'localhost'
-    PORT = 8080
-
-    uvicorn.run(app, host = HOST, port = PORT)
-"""

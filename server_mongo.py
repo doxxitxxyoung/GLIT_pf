@@ -37,7 +37,6 @@ def home():
 @app.route('/glit_predict', methods=['GET'])
 def glit_predict():
 
-#    t = time.time() # get execution time
 
     if flask.request.method == 'GET':
     

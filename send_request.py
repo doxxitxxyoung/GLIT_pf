@@ -41,7 +41,7 @@ else:
         payload = json.dumps(payload)
         r = requests.post(API_URL, json=payload)
 
-    return r
+        return r
 
 with open('data/sample_labeled_list_woAmbi_92742_70138_191119.pkl', 'rb') as f:
     sample = pickle.load(f)
