@@ -3,6 +3,7 @@
 # works on local server atm
 
 import requests
+from requests.exceptions import ConnectionError
 #from starlette import requests
 from starlette.testclient import TestClient
 from pydantic import BaseModel
@@ -69,8 +70,19 @@ def predict_result(ecfp, gex, dosage, duration, drugname, cellline):
 
 #    r = requests.post(API_URL, data=payload)    #   {'detail': 'There was an error parsing the body'}
     r = requests.post(API_URL, json=payload)   
+#    r = retry_on_connectionerror(requests.post(API_URL, json=payload))
 
     return r
+
+def retry_on_connectionerror(f, max_retries=5):
+    retries = 0
+    while retries < max_retries:
+        try:
+            return f()
+        except ConnectionError:
+            retries += 1
+    raise Exception("Maximum retries exceeded")
+
 
 with open('data/sample_labeled_list_woAmbi_92742_70138_191119.pkl', 'rb') as f:
     sample = pickle.load(f)
@@ -86,6 +98,7 @@ smiles = sample[7]
 
 t = time.time()
 result = predict_result(ecfp, gex, dosage, duration, drugname, cellline)
+#result = retry_on_connectionerror(predict_result(ecfp, gex, dosage, duration, drugname, cellline))
 print(result.json())
 dt = time.time() - t
 print("Execution time : %0.02f seconds"%(dt))
