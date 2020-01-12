@@ -13,7 +13,7 @@ import time
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('--method', type = str, default = 'gke')
+parser.add_argument('--method', type = str, default = 'local')
 parser.add_argument('--type', type = str, default = 'get')
 
 args = parser.parse_args()

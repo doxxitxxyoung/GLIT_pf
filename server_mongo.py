@@ -20,12 +20,18 @@ model = Model_serve()
 # Connect to mongo db, get item by drugname and cellline 
 from pymongo import MongoClient
 
-HOST = 'localhost'
-PORT = 27017
+#   Local approach
+#HOST = 'localhost'
+#PORT = 27017
+#client = MongoClient(host = HOST, port = PORT)
+#db = client['glit-db']
+#posts = db.posts # posts == collection
 
-client = MongoClient(host = HOST, port = PORT)
-db = client['glit-db']
-posts = db.posts # posts == collection
+# Atlas use
+mongodb_uri = "mongodb+srv://doxxitxxyoung:Tele63741@cluster0-9usdz.gcp.mongodb.net/test?retryWrites=true&w=majority"
+client = MongoClient(mongodb_uri)
+db = client.glit_db
+collection = db.glit_collection
 
 
 @app.route('/')
@@ -43,7 +49,7 @@ def glit_predict():
         drugname = request.args.get('drugname')
         cellline = request.args.get('cellline')
 
-        selected_doc = posts.find({'drugname': drugname, 'cellline': cellline})
+        selected_doc = collection.find({'drugname': drugname, 'cellline': cellline})
 
         #   Only select single doc, ATM.
         selected_doc = selected_doc.__getitem__(0)

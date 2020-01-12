@@ -21,7 +21,11 @@ parser.add_argument('--type', type=str, default = 'post')
 
 args = parser.parse_args() 
 
-API_URL = 'http://localhost:8080/glit_predict'
+if args.method == 'local':
+    API_URL = 'http://localhost:8080/glit_predict'
+else:
+    API_URL = 'http://34.97.171.244/glit_predict'
+    
 #API_URL = 'http://localhost:8000/glit_predict'
 #API_URL = 'http://localhost:80/glit_predict/'
 
