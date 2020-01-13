@@ -2,6 +2,14 @@ from pymongo import MongoClient
 import numpy as np
 import pickle
 import pprint
+import argparse
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument('--insert', type = bool, default = False)
+
+args = parser.parse_args()
+
 
 HOST = 'localhost'
 PORT = 27017
@@ -35,7 +43,7 @@ print('test to mongodb Successed!')
 #posts = db.posts    #   <class 'pymongo.collection.Collection'>
 
 #   Clear collection at the moment
-db.drop_collection("glit_collection")
+#db.drop_collection("glit_collection")
 
 collection = db.glit_collection    #   <class 'pymongo.collection.Collection'>
 print(collection.count())
@@ -45,7 +53,8 @@ print('connection to mongodb Successed!')
 
 
 
-with open('data/sample_labeled_list_woAmbi_92742_70138_191119.pkl', 'rb') as f:
+#with open('data/sample_labeled_list_woAmbi_92742_70138_191119.pkl', 'rb') as f:
+with open('data/labeled_list_woAmbi_92742_70138.pkl', 'rb') as f:
     samples = pickle.load(f)
 
 for i, x in enumerate(samples):
@@ -59,7 +68,6 @@ for i, x in enumerate(samples):
     smiles = x[7]
 
     #   Non-nested structure
-    """
     doc = {"drugname" : drugname,
             "ecfp": [int(x) for x in ecfp],
             "gex": [float(x) for x in gex],
@@ -69,9 +77,9 @@ for i, x in enumerate(samples):
             "cellline": cellline,
             "smiles": smiles
             }
-    """
 
     #   Nested structure
+    """
     doc = {"drugname" : drugname,
             "label" : label,
             "smiles": smiles,
@@ -83,6 +91,7 @@ for i, x in enumerate(samples):
                     "duration": int(duration)
                         }
         }
+    """
 
     #   Nested structure 2
     """
@@ -103,7 +112,7 @@ for i, x in enumerate(samples):
 
 
     #   Insert docs into DB collection
-    collection.insert_one(doc)
+#    collection.insert_one(doc)
 
     if i == 0:
 
