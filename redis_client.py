@@ -13,10 +13,20 @@ client = redis.Redis(host = HOST, port = PORT)
 # https://stackoverflow.com/questions/55311399/fastest-way-to-store-a-numpy-array-in-redis
 # r == client()
 
+#   Flush & initialize empty DB
+#client.flushall()
+
+#   Database Description
+dbsize = client.dbsize()
+print('DB size : '+str(dbsize))
+
+
 
 #   Save 
-with open('data/sample_labeled_list_woAmbi_92742_70138_191119.pkl', 'rb') as f:
+#with open('data/sample_labeled_list_woAmbi_92742_70138_191119.pkl', 'rb') as f:
+with open('data/labeled_list_woAmbi_92742_70138.pkl', 'rb') as f:
     samples = pickle.load(f)
+samples = samples[:10000]
 """
 # 1. Using set / get
 for i, x in enumerate(samples):
@@ -43,9 +53,10 @@ for i, x in enumerate(samples):
         gex = np.frombuffer(gex, dtype = np.float64)
         print(gex)
         print(gex.shape)
+"""
 
+"""
 # 2. Using hashes
-
 for i, x in enumerate(samples):
     ecfp = x[0]
     gex = x[1]
@@ -87,10 +98,21 @@ for i, x in enumerate(samples):
         
     name = '_'.join([drugname, cellline])
     if i == 0:
+        """
         gex = client.hget(name, 'gex')
         gex = np.frombuffer(gex, dtype = np.float64)
         print(gex)
         print(gex.shape)
+        """
+#        print('ecfp: ', np.frombuffer(client.hget(name, 'ecfp')))
+#        print('gex: ', np.frombuffer(client.hget(name, 'gex')))
+        print('drugname & cellline: ', name)
+        print('hkeys: ', client.hkeys(name))
+        print('dosage: ', client.hget(name, 'dosage'))
+        print('duration: ', client.hget(name, 'duration'))
+#        print('smiles: ', client.hget(name, 'smiles'))
+        print('label: ', client.hget(name, 'label'))
+
 
 
 

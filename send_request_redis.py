@@ -13,7 +13,7 @@ import time
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('--method', type = str, default = 'gke')
+parser.add_argument('--method', type = str, default = 'local')
 parser.add_argument('--type', type = str, default = 'get')
 
 args = parser.parse_args()
@@ -75,7 +75,6 @@ sample = sample[0]
 if args.type == 'get':
     drugname = sample[5]
     cellline = sample[6]
-    print(type(cellline))
 
     t = time.time()
     result = predict_result(API_URL, drugname, cellline)

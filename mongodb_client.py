@@ -27,23 +27,25 @@ pprint(serverStatusResult)
 
 
 # Atlas use
+"""
 mongodb_uri = "mongodb+srv://doxxitxxyoung:Tele63741@cluster0-9usdz.gcp.mongodb.net/test?retryWrites=true&w=majority"
-#mongodb_uri = "mongodb+srv://doxxitxxyoung:Tele63741@cluster0-9usdz.gcp.mongodb.net/test?retryWrites=true&w=majority&ssl=true&ssl_cert_reqs=CERT_NONE"
 client = MongoClient(mongodb_uri)
-#db = client.test    #   <class 'pymongo.database.Database'>
-#db = client.sample_airbnb    #   <class 'pymongo.database.Database'>
+"""
+
+# Local use
+client = MongoClient(HOST, PORT) # local use
+
 db = client.glit_db    #   <class 'pymongo.database.Database'>
 print(db.list_collection_names())
 print('test to mongodb Successed!')
 
-#client = MongoClient(HOST, PORT) # local use
 
 #db = client['glit-db']
 
 #posts = db.posts    #   <class 'pymongo.collection.Collection'>
 
 #   Clear collection at the moment
-#db.drop_collection("glit_collection")
+db.drop_collection("glit_collection")
 
 collection = db.glit_collection    #   <class 'pymongo.collection.Collection'>
 print(collection.count())
@@ -56,6 +58,9 @@ print('connection to mongodb Successed!')
 #with open('data/sample_labeled_list_woAmbi_92742_70138_191119.pkl', 'rb') as f:
 with open('data/labeled_list_woAmbi_92742_70138.pkl', 'rb') as f:
     samples = pickle.load(f)
+
+#   Only use 10000 samples, ATM
+samples = samples[:10000]
 
 for i, x in enumerate(samples):
     ecfp = x[0]
@@ -112,7 +117,7 @@ for i, x in enumerate(samples):
 
 
     #   Insert docs into DB collection
-#    collection.insert_one(doc)
+    collection.insert_one(doc)
 
     if i == 0:
 
