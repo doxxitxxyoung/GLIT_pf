@@ -49,6 +49,7 @@ returns '{"1": "norm9_ab1", "2": "dataset-hdf", "3": "audio", ...
 """
 
 def predict_result(ecfp, gex, dosage, duration, drugname, cellline):
+    """
     json_dict = InputData(
             ecfp=ecfp.tolist(),
             gex = gex.tolist(),
@@ -66,14 +67,14 @@ def predict_result(ecfp, gex, dosage, duration, drugname, cellline):
         'drugname': drugname,
         'cellline': cellline
     }
-    """
 
 #    payload = json.dumps(json_dict)
-    payload = json_dict.dict()
+#    payload = json_dict.dict()
 #    print(payload)
 
 #    r = requests.post(API_URL, data=payload)    #   {'detail': 'There was an error parsing the body'}
-    r = requests.post(API_URL, json=payload)   
+#    r = requests.post(API_URL, json=payload)   
+    r = requests.post(API_URL, data=json.dumps(json_dict))   
 #    r = retry_on_connectionerror(requests.post(API_URL, json=payload))
 
     return r

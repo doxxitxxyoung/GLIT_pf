@@ -53,10 +53,12 @@ def root():
 #   Post using pydantic
 @app.post('/glit_predict/')
 #@app.post('/glit_predict/{request}')
-async def glit_predict(request: InputData):
-    request_dict = request.dict()
+async def glit_predict(request: dict):
 
+    
     t = time.time() # get execution time
+
+    request_dict = request
     
     ecfp = request_dict['ecfp']
     gex = request_dict['gex']
