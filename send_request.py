@@ -22,6 +22,8 @@ if args.method == 'local':
     API_URL = 'http://localhost:8080/glit_predict'
 elif args.method == 'gae':
     API_URL = 'https://glit-server-fast.appspot.com/glit_predict' # for Google App Engine
+elif args.method == 'gcrun':
+    API_URL = 'https://glit-server-flask-7lgyyna2xa-an.a.run.app/glit_predict' # for Google Cloud Run
 else:
     API_URL = 'http://34.97.190.179/glit_predict' # for Google Kubernetes Engine
 

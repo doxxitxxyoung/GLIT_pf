@@ -7,7 +7,9 @@ from typing import List
 from starlette.responses import JSONResponse, Response
 
 from fastapi import HTTPException
+from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
+from starlette.responses import PlainTextResponse
 
 import server_fastapi_router
 from fastapi import File, Form, UploadFile
@@ -73,13 +75,20 @@ async def glit_predict(request: InputData):
     return {'ecfp': ecfp[0], 'gex':gex[0], 'dosage':dosage, 'duration':duration, 'drugname':drugname, 'predicted_prob':result}
 
 
-@app.exception_handler(RequestValidationException)
+@app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request, exc):
     return PlainTextResponse(str(exc), status_code=400)
 
 @app.exception_handler(StarletteHTTPException)
 async def http_exception_handler(request, exc):
     return PlainTextResponse(str(exc.detail), status_code=exc.status_code)
+
+
+if __name__ == "__main__":
+    HOST = 'localhost'
+    PORT = 8080
+
+    uvicorn.run(app, host = HOST, port = PORT)
 
 """
 def glit_predict(request: InputData):
@@ -153,8 +162,3 @@ async def glit_predict(ecfp: List[int], gex: List[float], dosage: float, duratio
 
 """
 
-if __name__ == "__main__":
-    HOST = 'localhost'
-    PORT = 8080
-
-    uvicorn.run(app, host = HOST, port = PORT)
