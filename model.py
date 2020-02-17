@@ -163,7 +163,7 @@ class GEX_PPI_GAT_cat4_MLP(nn.Module):
         
         return proba
 
-    def forward_serving(self, x, adj, get_gex_idxs, device, args, epoch, training = True):
+    def forward_serving(self, x, adj, get_gex_idxs, device, args, epoch, training = False):
         # x[0] : ecfp, x[1] : gex, x[2] : dosage, x[3] : duration
         #   input values as single sample
         self.tmp_batch_size = 1

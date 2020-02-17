@@ -35,4 +35,4 @@ WORKDIR ../
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-CMD ["uvicorn", "server_fastapi:app", "--reload", "--port", "8080"]
+CMD ["uvicorn", "server_fastapi_mongo:app", "--reload", "--port", "8080"]

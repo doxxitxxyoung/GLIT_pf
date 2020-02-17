@@ -47,7 +47,7 @@ def root():
 
 #   Using GET method, gather drugname and cellline
 
-@app.get('/glit_predict/')
+@app.get('/glit_predict')
 
 async def glit_predict(drugname, cellline):
     selected_doc = posts.find({'drugname': drugname, 'cellline': cellline})
@@ -154,10 +154,8 @@ def glit_predict(ecfp: ):
     return jsonify({'ecfp': ecfp[0], 'gex':gex[0], 'dosage':dosage, 'duration':duration, 'drugname':drugname, 'predicted_prob':result})
 """
 
-"""
 if __name__ == "__main__":
     HOST = 'localhost'
     PORT = 8080
 
     uvicorn.run(app, host = HOST, port = PORT)
-"""
